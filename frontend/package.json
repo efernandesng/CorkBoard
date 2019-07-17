@@ -1,0 +1,24 @@
+{
+  "name": "cork-board",
+  "version": "1.0.0",
+  "description": "Desc",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Emanuel Fernandes <efernandes@tektorque.com>",
+  "license": "MIT",
+  "dependencies": {
+    "next": "^9.0.2",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
+  },
+  "devDependencies": {
+    "@types/node": "^12.6.4",
+    "@types/react": "^16.8.23",
+    "typescript": "^3.5.3"
+  }
+}
