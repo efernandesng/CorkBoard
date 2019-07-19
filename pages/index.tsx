@@ -1,5 +1,5 @@
-import Link from 'next/link';
-import { DatePicker } from 'antd';
+import Link from 'next/link'
+import { DatePicker } from 'antd'
 import Layout from '../components/Layout'
 
 const Index = () => (
@@ -8,6 +8,6 @@ const Index = () => (
       <DatePicker />
     </div>
   </Layout>
-);
+)
 
-export default Index;
+export default Index
