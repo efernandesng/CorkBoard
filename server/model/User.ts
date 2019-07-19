@@ -1,12 +1,11 @@
 import BaseModel from './BaseModel'
 
 class User extends BaseModel {
+  constructor() {
+    super()
 
-    constructor() {
-        super()
-
-        this.tblName = 'User'
-    }
+    this.tblName = 'User'
+  }
 }
 
 export default User

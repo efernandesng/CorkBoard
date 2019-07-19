@@ -7,7 +7,7 @@
     "dev": "nodemon",
     "build": "next build && tsc --project tsconfig.server.json",
     "start": "cross-env NODE_ENV=production node dist/index.js",
-    "prettier": "prettier  --write **/*.{ts,tsx,js,jsx}",
+    "prettier": "prettier --write {pages,components,server}/**/*.{ts,tsx,js,jsx}",
     "lint:ts": "npm run prettier && tslint -c tslint.json -t stylish --fix {pages,components,server}/**/*.{ts,tsx}",
     "lint:less": "stylelint --fix assets/**/*.less",
     "lint:types": "tsc -p . --noEmit",
