@@ -15,7 +15,7 @@ import {
 const { Header, Content, Footer } = Layout
 const { Text } = Typography
 
-import '../styles.less'
+import '../assets/styles.less'
 
 interface Props {
   title?: string

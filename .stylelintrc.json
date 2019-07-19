@@ -1,0 +1,12 @@
+{
+    "extends": ["stylelint-config-recommended", "stylelint-config-prettier"],
+    "plugins": [],
+    "rules": {
+      "at-rule-no-unknown": null,
+      "max-nesting-depth": 3,
+      "color-no-invalid-hex": true,
+      "value-no-vendor-prefix": true,
+      "at-rule-no-vendor-prefix": true,
+      "media-feature-name-no-vendor-prefix": true
+    }
+  }
