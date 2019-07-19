@@ -1,0 +1,33 @@
+version: '3.1'
+services:
+  app:
+    image: node:10-alpine
+    user: node
+    working_dir: /home/node/app
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - ./:/home/node/app
+    ports: 
+      - 3000:3000
+    command: "npm run dev"
+  database:
+    image: postgres:11-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: corkboard
+      POSTGRES_PASSWORD: passw0rd
+      POSTGRES_DB: corkboard
+    ports: 
+      - 5432:5432
+    volumes: 
+      - db-data:/var/lib/postgresql/data
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+  redis:
+    image: redis
+volumes: 
+  db-data: {}
