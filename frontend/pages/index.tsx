@@ -1,18 +1,13 @@
 import Link from 'next/link';
 import { DatePicker } from 'antd';
-
-const linkStyle = {
-  marginRight: 15
-}
+import Layout from '../components/Layout'
 
 const Index = () => (
-  <div>
-    <Link href="/about">
-      <a style={linkStyle}>About Page</a>
-    </Link>
-    <p>Hello Next.js</p>
-    <DatePicker/>
-  </div>
+  <Layout title="Home | Next.js + TypeScript Example">
+    <div>
+      <DatePicker />
+    </div>
+  </Layout>
 );
 
 export default Index;
