@@ -1,19 +1,19 @@
 import Db from '../db'
 
 abstract class BaseModel {
-    private _tblName: string
-    protected db: Db
-
-    constructor() {
-        this.db = Db.Instance
-    }
 
     set tblName(name: string) {
-        this._tblName = name
+        this.tblName = name
     }
 
     get tblName(): string {
-        return this._tblName
+        return this.tblName
+    }
+    protected db: Db
+    // private tblName: string
+
+    constructor() {
+        this.db = Db.Instance
     }
 }
 

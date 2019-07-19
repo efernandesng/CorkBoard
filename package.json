@@ -8,6 +8,8 @@
     "build": "next build && tsc --project tsconfig.server.json",
     "start": "cross-env NODE_ENV=production node dist/index.js",
     "prettier": "prettier  --write **/*.{ts,tsx,js,jsx}",
+    "lint:ts": "npm run prettier && tslint -c tslint.json -t stylish --fix {pages,components,server}/**/*.{ts,tsx}",
+    "lint:types": "tsc -p . --noEmit",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Emanuel Fernandes <efernandes@tektorque.com>",
@@ -31,6 +33,10 @@
     "nodemon": "^1.19.1",
     "prettier": "^1.18.2",
     "ts-node": "^8.3.0",
+    "tslint": "^5.18.0",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-eslint-rules": "^5.4.0",
+    "tslint-react": "^4.0.0",
     "typescript": "^3.5.3"
   }
 }

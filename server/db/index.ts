@@ -2,7 +2,7 @@ import { Pool, QueryArrayResult } from 'pg'
 
 class Db {
 
-    private static _instance: Db
+    private static instance: Db
     private pool: Pool
 
     private constructor() {
@@ -10,20 +10,21 @@ class Db {
     }
 
     static get Instance() {
-        return this._instance || (this._instance = new this())
+        return this.instance || (this.instance = new this())
     }
 
-    async query(text: string, values: any[]): Promise<QueryArrayResult> {
+    public async query(text: string, values: any[]): Promise<QueryArrayResult> {
         const start = Date.now()
         const res = await this.pool.query(text, values)
         const duration = Date.now() - start
+        // tslint:disable-next-line: no-console
         console.log('executed query', { text, duration, rows: res.rowCount })
         return res
     }
 
-    async getClient(): Promise<any> {
+    public async getClient(): Promise<any> {
         const client = await this.pool.connect()
-        //TODO: https://node-postgres.com/guides/project-structure
+        // TODO: https://node-postgres.com/guides/project-structure
         return client
     }
 }

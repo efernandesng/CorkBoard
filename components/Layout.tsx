@@ -17,7 +17,7 @@ const { Text } = Typography
 
 import '../styles.less'
 
-type Props = {
+interface Props {
   title?: string
 }
 
@@ -46,7 +46,7 @@ const MainLayout: React.FunctionComponent<Props> = ({
             <Col span={8}>
               <Row gutter={8}>
                 <Col span={20} style={{ textAlign: 'right' }}>
-                  <Text strong>Minha conta</Text>
+                  <Text strong={true}>Minha conta</Text>
                 </Col>
                 <Col span={4}>
                   <Avatar icon="user" />
