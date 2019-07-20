@@ -1,10 +1,11 @@
-import BaseModel from './BaseModel'
+import DAO from './DAO'
 
-class User extends BaseModel {
+class User extends DAO {
   constructor() {
     super()
 
     this.tblName = 'User'
+    this.primaryKey = 'id'
   }
 }
 

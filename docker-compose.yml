@@ -6,11 +6,21 @@ services:
     working_dir: /home/node/app
     environment:
       - NODE_ENV=development
+      - PGHOST=db1.corkboard.dev.local
+      - PGUSER=corkboard
+      - PGDATABASE=corkboard
+      - PGPASSWORD=passw0rd
+      - PGPORT=5432
+    command: "npm run dev"
     volumes:
       - ./:/home/node/app
     ports: 
       - 3000:3000
-    command: "npm run dev"
+    networks:
+      cb-net:
+        aliases: 
+          - corkboard.dev.local
+
   database:
     image: postgres:11-alpine
     restart: always
@@ -22,12 +32,31 @@ services:
       - 5432:5432
     volumes: 
       - db-data:/var/lib/postgresql/data
+    networks:
+      cb-net:
+        aliases: 
+          - db1.corkboard.dev.local
+
   adminer:
     image: adminer
     restart: always
     ports:
       - 8080:8080
+    networks:
+      cb-net:
+        aliases: 
+          - adminer.corkboard.dev.local
+
   redis:
     image: redis
+    networks:
+      cb-net:
+        aliases: 
+          - redis1.corkboard.dev.local
+
 volumes: 
   db-data: {}
+
+networks: 
+  cb-net:
+    driver: bridge
