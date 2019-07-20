@@ -1,5 +1,8 @@
 import { Pool, QueryArrayResult, PoolConfig } from 'pg'
 import Client from './lib/Client'
+import Logger from '../Logger'
+
+const logger = Logger.logger
 
 class Db {
   private static instance: Db
@@ -22,12 +25,10 @@ class Db {
     try {
       res = await this.pool.query(queryText, values)
     } catch (error) {
-      // tslint:disable-next-line: no-console
-      console.error(error)
+      logger.error(error)
     } finally {
       const duration = Date.now() - start
-      // tslint:disable-next-line: no-console
-      console.log('executed query', {
+      logger.info('executed query', {
         text: queryText,
         duration,
         rows: res.rowCount,

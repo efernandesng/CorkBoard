@@ -1,4 +1,7 @@
 import { PoolClient, QueryArrayResult, QueryConfig, QueryResult } from 'pg'
+import Logger from '../../Logger'
+
+const logger = Logger.logger
 
 class Client {
   private poolClient: PoolClient
@@ -13,10 +16,8 @@ class Client {
     values?: any[]
   ): Promise<QueryResult> {
     this.rTimeout = global.setTimeout(() => {
-      // tslint:disable-next-line: no-console
-      console.error('A client has been checked out for more than 5 seconds!')
-      // tslint:disable-next-line: no-console
-      console.error(
+      logger.warn('A client has been checked out for more than 5 seconds!')
+      logger.warn(
         `The last executed query on this client was: '${queryTextOrConfig}' ${
           values ? values.toString() : ''
         }`

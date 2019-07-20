@@ -1,7 +1,10 @@
 import { createServer } from 'http'
 import { parse } from 'url'
 import next from 'next'
+import Logger from './Logger'
 import Db from './db'
+
+const logger = Logger.logger
 
 const port = parseInt(process.env.PORT || '3000', 10)
 const dev = process.env.NODE_ENV !== 'production'
@@ -28,8 +31,7 @@ app.prepare().then(async () => {
     handle(req, res, parsedUrl)
   }).listen(port)
 
-  // tslint:disable-next-line:no-console
-  console.log(
+  logger.info(
     `> Server listening at http://localhost:${port} as ${
       dev ? 'development' : process.env.NODE_ENV
     }`
