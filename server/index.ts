@@ -1,6 +1,8 @@
+import express from 'express'
+import next from 'next'
+
 import { createServer } from 'http'
 import { parse } from 'url'
-import next from 'next'
 import Logger from './Logger'
 import Db from './db'
 
@@ -11,29 +13,23 @@ const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
 const handle = app.getRequestHandler()
 
-app.prepare().then(async () => {
-  // const client = await Db.Instance.getClient()
-  // try {
-  //   const res = await client.query('SELECT NOW()')
-  //   console.log(res.rows[0])
-  // } catch (error) {
-  //   console.log(error.stack)
-  // } finally {
-  //   client.release()
-  // }
-  // const res = await Db.Instance.query('SELECT NOW()')
-  // console.log(res.rows[0])
+const startServer = async () => {
+  await app.prepare()
+  const server = express()
 
-  createServer((req, res) => {
-    const parsedUrl = parse(req.url!, true)
-    const { pathname, query } = parsedUrl
+  // TODO: Create router for API
 
-    handle(req, res, parsedUrl)
-  }).listen(port)
+  server.get('*', (req, res) => handle(req, res, parse(req.url || '', true)))
 
-  logger.info(
-    `> Server listening at http://localhost:${port} as ${
-      dev ? 'development' : process.env.NODE_ENV
-    }`
-  )
-})
+  server.listen(port, err => {
+    if (err) throw err
+
+    logger.info(
+      `> Server listening at http://localhost:${port} as ${
+        dev ? 'development' : process.env.NODE_ENV
+      }`
+    )
+  })
+}
+
+startServer()
