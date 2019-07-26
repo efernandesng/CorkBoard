@@ -1,16 +1,11 @@
 version: '3.1'
 services:
-  app:
+  corkboard:
     image: node:10-alpine
     user: node
     working_dir: /home/node/app
     environment:
       - NODE_ENV=development
-      - PGHOST=db1.corkboard.dev.local
-      - PGUSER=corkboard
-      - PGDATABASE=corkboard
-      - PGPASSWORD=passw0rd
-      - PGPORT=5432
     command: "npm run dev"
     volumes:
       - ./:/home/node/app
@@ -21,7 +16,7 @@ services:
         aliases: 
           - corkboard.dev.local
 
-  database:
+  postgres:
     image: postgres:11-alpine
     restart: always
     environment:
@@ -37,6 +32,12 @@ services:
         aliases: 
           - db1.corkboard.dev.local
 
+  s3:
+    image: lphoward/fake-s3
+    ports:
+      - "4569:4569"
+    volumes:
+      - ./fakes3:/fakes3_root
   adminer:
     image: adminer
     restart: always
