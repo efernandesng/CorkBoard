@@ -5,7 +5,6 @@ import Redis from 'ioredis'
 
 import { parse } from 'url'
 import Logger from './Logger'
-import Db from './db'
 
 // Load .env
 dotenv.config()
@@ -31,15 +30,6 @@ const initRedis = async () => {
   redis.on('reconnecting', () => logger.warn('Reconnecting to redis server'))
 
   return redis
-}
-
-const initDB = async () => {
-  const db = Db.Instance
-
-  if (process.env.DB_SYNC === 'true') {
-    // tslint:disable-next-line: no-console
-    console.log('SYNX')
-  }
 }
 
 const initExpress = async (redis: Redis.Redis) => {
@@ -77,7 +67,7 @@ const startServer = async () => {
 
   try {
     // Init Database
-    const pool = initDB()
+    // const pool = initDB()
 
     // Init Redis (Cache)
     const redis = await initRedis()
