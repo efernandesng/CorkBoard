@@ -1,5 +1,7 @@
 import dotenv from 'dotenv'
 import express from 'express'
+import session from 'express-session'
+import passport from 'passport'
 import next from 'next'
 import Redis from 'ioredis'
 
@@ -12,6 +14,8 @@ dotenv.config()
 // Express middleware
 import helmet from 'helmet'
 import rateLimiterRedis from './middleware/rateLimiterRedis'
+
+import google from './auth/google'
 
 const logger = Logger.logger
 
@@ -42,6 +46,21 @@ const initExpress = async (redis: Redis.Redis) => {
   server.use(helmet())
   // Rate limiter https://github.com/animir/node-rate-limiter-flexible
   server.use(rateLimiterRedis(redis))
+
+  // Session
+  server.use(
+    session({
+      resave: false,
+      saveUninitialized: false,
+      secret: process.env.SECRET_KEY,
+    })
+  )
+  // TODO: use redis store
+
+  // OAuth2
+  server.use(passport.initialize())
+  server.use(passport.session())
+  server.use(google.routes())
 
   // TODO: Create router for API
 
