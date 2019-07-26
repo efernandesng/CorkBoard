@@ -52,7 +52,7 @@ const routes = (): Router => {
   const router = express.Router()
 
   router.get(
-    '/auth/google/login',
+    '/auth/google',
     passport.authenticate('google', { scope: ['email', 'profile'] })
   )
 
