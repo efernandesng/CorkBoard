@@ -16,7 +16,7 @@ dotenv.config()
 import helmet from 'helmet'
 import rateLimiterRedis from './middleware/rateLimiterRedis'
 
-import google from './auth/google'
+import auth from './auth'
 
 const logger = Logger.logger
 
@@ -74,8 +74,12 @@ const initExpress = async (redisClient: Redis.Redis) => {
   // OAuth2
   server.use(passport.initialize())
   server.use(passport.session())
-  server.use(google.routes())
 
+  server.use('/auth', auth)
+
+  server.get('/logout', (req, res) => {
+    return
+  })
   // TODO: Create router for API
 
   // handle nextjs routing

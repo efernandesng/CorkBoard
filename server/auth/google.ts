@@ -49,15 +49,15 @@ passport.deserializeUser((obj, done) => {
 })
 
 const routes = (): Router => {
-  const router = express.Router()
+  const router = Router()
 
   router.get(
-    '/auth/google',
+    '/google',
     passport.authenticate('google', { scope: ['email', 'profile'] })
   )
 
   router.get(
-    '/auth/google/callback',
+    '/google/callback',
     passport.authenticate('google'),
     (req, res) => {
       // const redirect = req.session.oauth2return || '/'

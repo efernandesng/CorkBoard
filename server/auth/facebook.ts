@@ -23,12 +23,12 @@ passport.deserializeUser((obj, done) => {
 })
 
 const routes = (): Router => {
-  const router = express.Router()
+  const router = Router()
 
-  router.get('/auth/facebook', passport.authenticate('facebook'))
+  router.get('/facebook', passport.authenticate('facebook'))
 
   router.get(
-    '/auth/facebook/callback',
+    '/facebook/callback',
     passport.authenticate('facebook'),
     (req, res) => {
       // const redirect = req.session.oauth2return || '/'
