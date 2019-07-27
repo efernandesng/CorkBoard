@@ -1,6 +1,7 @@
 import dotenv from 'dotenv'
 import express from 'express'
-import session from 'express-session'
+import session, { SessionOptions } from 'express-session'
+import connectRedis from 'connect-redis'
 import passport from 'passport'
 import next from 'next'
 import Redis from 'ioredis'
@@ -36,7 +37,7 @@ const initRedis = async () => {
   return redis
 }
 
-const initExpress = async (redis: Redis.Redis) => {
+const initExpress = async (redisClient: Redis.Redis) => {
   const server = express()
 
   // disable X-Powered-By header
@@ -45,16 +46,29 @@ const initExpress = async (redis: Redis.Redis) => {
   // Use Helmet: protect from some well-known web vulnerabilities by setting HTTP headers appropriately
   server.use(helmet())
   // Rate limiter https://github.com/animir/node-rate-limiter-flexible
-  server.use(rateLimiterRedis(redis))
+  server.use(rateLimiterRedis(redisClient))
 
   // Session
-  server.use(
-    session({
-      resave: false,
-      saveUninitialized: false,
-      secret: process.env.SECRET_KEY,
-    })
-  )
+  const RedisStore = connectRedis(session)
+  // TODO: Use ioredis client
+  const store = new RedisStore({
+    url: process.env.REDIS_URL,
+  })
+
+  const sessionOptions: SessionOptions = {
+    name: 'cbsid',
+    resave: false,
+    saveUninitialized: false,
+    secret: process.env.SECRET_KEY,
+    store,
+  }
+
+  if (server.get('env') === 'production') {
+    server.set('trust proxy', 1)
+    sessionOptions.cookie.secure = true // serve secure cookies
+  }
+
+  server.use(session(sessionOptions))
   // TODO: use redis store
 
   // OAuth2
