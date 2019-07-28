@@ -11,6 +11,7 @@ import {
   Row,
   Typography,
 } from 'antd'
+import { connect } from 'react-redux'
 
 const { Header, Content, Footer } = Layout
 const { Text } = Typography
