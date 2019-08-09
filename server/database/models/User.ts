@@ -7,7 +7,7 @@ class User extends Model {
   public username!: string
   public name!: string
 
-  public avatarUrl: string
+  public avatarUrl: string | undefined
 
   public jwtSecret!: string
 
@@ -15,10 +15,13 @@ class User extends Model {
   public isModerator!: boolean
 
   public lastActiveAt!: Date
-  public lastActiveIp: string
+  public lastActiveIp: string | undefined
 
-  public suspendedAt: Date
-  public suspendedBy: string
+  public suspendedAt: Date | undefined
+  public suspendedBy:
+    | string
+    // timestamps!
+    | undefined
 
   // timestamps!
   public readonly createdAt!: Date

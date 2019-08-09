@@ -59,13 +59,16 @@ const initExpress = async (redisClient: Redis.Redis) => {
     name: 'cbsid',
     resave: false,
     saveUninitialized: false,
-    secret: process.env.SECRET_KEY,
+    secret: process.env.SECRET_KEY || '',
     store,
   }
 
   if (server.get('env') === 'production') {
     server.set('trust proxy', 1)
-    sessionOptions.cookie.secure = true // serve secure cookies
+
+    if (sessionOptions.cookie) {
+      sessionOptions.cookie.secure = true // serve secure cookies
+    }
   }
 
   server.use(session(sessionOptions))

@@ -4,8 +4,8 @@ import { Strategy, Profile } from 'passport-facebook'
 
 const strategy = new Strategy(
   {
-    clientID: process.env.FACEBOOK_APP_ID,
-    clientSecret: process.env.FACEBOOK_APP_SECRET,
+    clientID: process.env.FACEBOOK_APP_ID || '',
+    clientSecret: process.env.FACEBOOK_APP_SECRET || '',
     callbackURL: `${process.env.BASE_URL}/auth/facebook/callback`,
   },
   (accessToken, refreshToken, profile, done) => {

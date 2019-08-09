@@ -29,14 +29,14 @@ const extractProfile = (profile: Profile): ExtractedProfile => {
 // authentication.
 const strategy = new Strategy(
   {
-    clientID: process.env.GOOGLE_CLIENT_ID,
-    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    clientID: process.env.GOOGLE_CLIENT_ID || '',
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET || '',
     callbackURL: `${process.env.BASE_URL}/auth/google/callback`,
     accessType: 'offline',
     userProfileURL: 'https://www.googleapis.com/oauth2/v3/userinfo',
   },
   (accessToken, refreshToken, profile, done) => {
-    done(null, extractProfile(profile))
+    done(undefined, extractProfile(profile))
   }
 )
 
