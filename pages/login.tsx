@@ -1,11 +1,11 @@
 import Link from 'next/link'
 import { Button, Row, Col } from 'antd'
-import Layout from '../components/Layout'
+import Layout from '@components/Layout'
 
 const Index = () => {
   const handleBtnGoogleLoginClick = () => {
     // tslint:disable-next-line: no-console
-    console.log('XXXX')
+    console.log('XXXX ')
   }
 
   return (

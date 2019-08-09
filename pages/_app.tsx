@@ -5,8 +5,8 @@ import { Provider } from 'react-redux'
 import { Store } from 'redux'
 import { IncomingMessage } from 'http'
 import { NextPageContext } from 'next'
-import { initStore, AppState } from '../store'
-import actions from '../store/root-actions'
+import { initStore, AppState } from '@store/index'
+import actions from '@store/root-actions'
 
 interface SessionIncomingMessage extends IncomingMessage {
   user: any

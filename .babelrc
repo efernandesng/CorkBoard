@@ -9,6 +9,16 @@
                 "libraryName": "antd",
                 "style": true
             },
+        ],[
+            "module-resolver",
+            {
+                "root": ["./"],
+                "alias": {
+                    "@containers": "./view/containers",
+                    "@components": "./view/components",
+                    "@store": "./store"
+                }
+            }
         ]
     ]
 }
