@@ -58,6 +58,7 @@
     "redux-thunk": "^2.3.0",
     "sequelize": "^5.10.3",
     "sequelize-encrypted": "^1.0.0",
+    "typesafe-actions": "^4.4.2",
     "winston": "^3.2.1"
   },
   "devDependencies": {
