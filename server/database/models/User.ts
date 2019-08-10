@@ -1,27 +1,27 @@
 import { Model, DataTypes, BuildOptions } from 'sequelize'
-import { sequelize, encryptedFields } from '../sequelize'
+import { sequelize } from '../sequelize'
 
 class User extends Model {
   public id!: string
+  public authProvider!: string
+  public providerId?: string
+  public accessToken?: string
+
+  public fullName!: string
   public email!: string
+  public avatarUrl?: string
+
   public username!: string
-  public name!: string
-
-  public avatarUrl: string | undefined
-
   public jwtSecret!: string
 
   public isAdmin!: boolean
   public isModerator!: boolean
 
   public lastActiveAt!: Date
-  public lastActiveIp: string | undefined
+  public lastActiveIp?: string
 
-  public suspendedAt: Date | undefined
-  public suspendedBy:
-    | string
-    // timestamps!
-    | undefined
+  public suspendedAt?: Date
+  public suspendedBy?: string
 
   // timestamps!
   public readonly createdAt!: Date
@@ -35,11 +35,20 @@ User.init(
       defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
     },
+    authProvider: {
+      type: DataTypes.ENUM('local', 'google', 'facebook'),
+      defaultValue: 'local',
+    },
+    providerId: { type: DataTypes.STRING, allowNull: true },
+    accessToken: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
     email: { type: DataTypes.STRING },
     username: { type: DataTypes.STRING },
-    name: { type: DataTypes.STRING },
+    fullName: { type: DataTypes.STRING },
     avatarUrl: { type: DataTypes.STRING, allowNull: true },
-    jwtSecret: encryptedFields.vault('jwtSecret'),
+    jwtSecret: { type: DataTypes.STRING, allowNull: true },
   },
   {
     tableName: 'user',
@@ -47,3 +56,5 @@ User.init(
     sequelize,
   }
 )
+
+export default User

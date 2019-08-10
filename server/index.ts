@@ -7,10 +7,12 @@ import next from 'next'
 import Redis from 'ioredis'
 
 import { parse } from 'url'
-import Logger from './Logger'
 
 // Load .env
 dotenv.config()
+
+import { sequelize, loadModels } from './database/sequelize'
+import Logger from './Logger'
 
 // Express middleware
 import helmet from 'helmet'
@@ -106,8 +108,10 @@ const startServer = async () => {
   await app.prepare()
 
   try {
-    // Init Database
-    // const pool = initDB()
+    // Init Database (PostgreSql with pgcrypto)
+    await sequelize.query('CREATE EXTENSION IF NOT EXISTS pgcrypto')
+    loadModels()
+    await sequelize.sync() // TODO: Use migrations on production. https://sequelize.org/master/manual/migrations.html
 
     // Init Redis (Cache)
     const redis = await initRedis()
