@@ -1,24 +1,24 @@
 {
-    "presets": [
-        "next/babel"
+  "presets": ["next/babel"],
+  "plugins": [
+    [
+      "import",
+      {
+        "libraryName": "antd",
+        "style": true
+      }
     ],
-    "plugins": [
-        [
-            "import",
-            {
-                "libraryName": "antd",
-                "style": true
-            },
-        ],[
-            "module-resolver",
-            {
-                "root": ["./"],
-                "alias": {
-                    "@containers": "./view/containers",
-                    "@components": "./view/components",
-                    "@store": "./store"
-                }
-            }
-        ]
+    [
+      "module-resolver",
+      {
+        "root": ["./"],
+        "alias": {
+          "@db": "./server/database",
+          "@containers": "./view/containers",
+          "@components": "./view/components",
+          "@store": "./store"
+        }
+      }
     ]
+  ]
 }

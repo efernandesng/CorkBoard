@@ -16,6 +16,7 @@
     "baseUrl": ".",
     "typeRoots": ["./node_modules/@types", "./types"],
     "paths": {
+      "@db/*": ["./server/database/*"],
       "@containers/*": ["./view/containers/*"],
       "@components/*": ["./view/components/*"],
       "@store/*": ["./store/*"],
